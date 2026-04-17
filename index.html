@@ -117,6 +117,40 @@
       justify-content: center;
     }
 
+    .section-copy {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 0;
+    }
+
+    .copy-wrap {
+      max-width: 680px;
+      padding: 0 40px;
+    }
+
+    .copy-line {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin: 0 0 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25em;
+    }
+
+    .copy-indent {
+      padding-left: 2em;
+      color: var(--text-muted);
+    }
+
+    .copy-gap {
+      margin-top: 2em;
+    }
+
     .statement-wrap {
       font-family: var(--font-display);
       font-weight: 300;
@@ -247,17 +281,72 @@
     </div>
   </section>
 
-  <section class="section-tagline">
-    <div class="tagline-wrap">
-      <div class="tagline-line1">
-        <span class="word">What</span>
-        <span class="word">we</span>
-        <span class="word">do</span>
+  <section class="section-copy">
+    <div class="copy-wrap">
+      <p class="copy-line">
+        <span class="word">We</span>
+        <span class="word">build</span>
+        <span class="word">what</span>
+        <span class="word">dominant</span>
+        <span class="word">platforms</span>
+        <span class="word">refuse</span>
+        <span class="word">to</span>
+        <span class="word">create.</span>
+      </p>
+      <p class="copy-line copy-indent">
+        <span class="word">Tools</span>
+        <span class="word">that</span>
+        <span class="word">don't</span>
+        <span class="word">report</span>
+        <span class="word">upward.</span>
+      </p>
+      <p class="copy-line copy-gap">
+        <span class="word">Your</span>
+        <span class="word">information</span>
+        <span class="word">—</span>
+        <span class="word">and</span>
+        <span class="word">your</span>
+        <span class="word">clients'</span>
+        <span class="word">—</span>
         <span class="word">is</span>
-      </div>
-      <div class="tagline-line2">
-        <span class="word secret">secret.</span>
-      </div>
+        <span class="word">already</span>
+        <span class="word">being</span>
+        <span class="word">collected.</span>
+      </p>
+      <p class="copy-line">
+        <span class="word">What</span>
+        <span class="word">should</span>
+        <span class="word">remain</span>
+        <span class="word">private</span>
+        <span class="word">has</span>
+        <span class="word">become</span>
+        <span class="word">raw</span>
+        <span class="word">input</span>
+        <span class="word">for</span>
+        <span class="word">someone</span>
+        <span class="word">else's</span>
+        <span class="word">machine.</span>
+      </p>
+      <p class="copy-line copy-gap">
+        <span class="word">We</span>
+        <span class="word">build</span>
+        <span class="word">for</span>
+        <span class="word">those</span>
+        <span class="word">who've</span>
+        <span class="word">decided</span>
+        <span class="word">that</span>
+        <span class="word">cost</span>
+        <span class="word">is</span>
+        <span class="word">unacceptable.</span>
+      </p>
+      <p class="copy-line copy-gap">
+        <span class="word">This</span>
+        <span class="word">is</span>
+        <span class="word">the</span>
+        <span class="word">first</span>
+        <span class="word">of</span>
+        <span class="word">many.</span>
+      </p>
     </div>
   </section>
 
@@ -310,14 +399,14 @@
       });
     }
 
-    document.querySelectorAll('.section-tagline, .section-statement, .section-product').forEach(function(section) {
+    document.querySelectorAll('.section-copy, .section-statement, .section-product').forEach(function(section) {
       animateWords(section, 0.12);
     });
   </script>
   <div class="ticker-bar" aria-hidden="true">
     <div class="ticker-track">
-      <span class="ticker-content">WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp;</span>
-      <span class="ticker-content" aria-hidden="true">WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp;</span>
+      <span class="ticker-content">WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · </span>
+      <span class="ticker-content" aria-hidden="true">WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · WHAT WE DO IS SECRET · </span>
     </div>
   </div>
 </body>
