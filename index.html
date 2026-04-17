@@ -165,9 +165,44 @@
 
     .section-footer {
       padding: 120px 0;
+      padding-bottom: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .ticker-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: #0e0e0f;
+      padding: 10px 0;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker-scroll 30s linear infinite;
+    }
+
+    .ticker-content {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #4a4845;
+      padding-right: 0;
+      white-space: nowrap;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .footer-wrap {
@@ -279,5 +314,11 @@
       animateWords(section, 0.12);
     });
   </script>
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-content">WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp;</span>
+      <span class="ticker-content" aria-hidden="true">WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp; WHAT WE DO IS SECRET &nbsp;&nbsp;·&nbsp;&nbsp;</span>
+    </div>
+  </div>
 </body>
 </html>
