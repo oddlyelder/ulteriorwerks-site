@@ -1,135 +1,279 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ulterior Werks LLC</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
     :root {
       --bg: #0e0e0f;
       --text-primary: #efefef;
       --text-muted: #b8b8b8;
       --text-faint: #4a4845;
-      --accent-1: #E62231;
-      --accent-2: #00C2B2;
+      --accent: #00F5E0;
       --font-display: 'IBM Plex Sans', sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
-      margin: 0;
       background: var(--bg);
       color: var(--text-primary);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .section-wordmark {
+      height: 100vh;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
     }
 
-    .page {
-      width: 100%;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 24px;
+    .wordmark-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(12vw, 16vw, 20vw);
+      line-height: 1;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark-bar {
+      font-weight: 300;
+      margin: 0 0.04em;
+      position: relative;
+      top: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .wordmark-werks {
+      position: relative;
+      top: 0.015em;
+      letter-spacing: -0.03em;
+    }
+
+    .section-tagline {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tagline-wrap {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(5vw, 7vw, 9vw);
+      line-height: 1.1;
+    }
+
+    .tagline-line1 {
+      font-weight: 300;
+      color: var(--text-primary);
+      display: flex;
+      gap: 0.25em;
+      justify-content: center;
+      margin-bottom: 0.1em;
+    }
+
+    .tagline-line2 {
+      font-weight: 400;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+    }
+
+    .secret {
+      letter-spacing: 0.18em;
+      font-size: 110%;
+    }
+
+    .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .section-statement {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .statement-wrap {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(4vw, 6vw, 8vw);
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.25em;
       text-align: center;
     }
 
-    .wordmark {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      margin-top: 40px;
-      margin-bottom: 0;
+    .section-product {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .tagline {
-      font-family: var(--font-display);
-      font-weight: 300;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.2;
-      color: var(--text-primary);
-      margin-top: 24px;
-      margin-bottom: 24px;
+    .product-wrap {
+      text-align: center;
     }
 
-    .products-label {
+    .product-name {
+      display: block;
       font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin: 0 0 12px;
-    }
-
-    .product-link {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      color: var(--accent-1);
+      font-weight: 400;
+      font-size: clamp(6vw, 8vw, 10vw);
+      color: var(--accent);
+      letter-spacing: 0.1em;
       text-decoration: none;
+      margin-bottom: 0.4em;
+    }
+
+    .product-name:hover {
+      opacity: 0.7;
       transition: opacity 0.15s;
     }
 
-    .product-link:hover {
-      opacity: 0.7;
-    }
-
-    .contact {
+    .product-desc {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-weight: 300;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
       color: var(--text-muted);
-      margin-top: 40px;
-    }
-
-    .contact a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-
-    .contact a:hover {
-      color: var(--text-muted);
-    }
-
-    .product-line {
+      letter-spacing: 0.06em;
       margin: 0;
     }
 
-    .footer {
+    .section-footer {
+      padding: 120px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-wrap {
+      text-align: center;
       font-family: var(--font-mono);
+    }
+
+    .footer-email {
+      display: block;
+      font-size: 14px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+
+    .footer-email:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-legal {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--text-faint);
+      margin: 0 0 8px;
+    }
+
+    .footer-copy {
       font-size: 10px;
       color: var(--text-faint);
-      margin-top: 32px;
-      padding-bottom: 32px;
+      letter-spacing: 0.08em;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <p class="wordmark">ULTERIOR WERKS LLC</p>
+  <section class="section-wordmark">
+    <div class="wordmark-wrap">
+      <span class="wordmark-ulterior">ULTERIOR</span>
+      <span class="wordmark-bar">|</span>
+      <span class="wordmark-werks">WERKS</span>
+    </div>
+  </section>
 
-    <p class="tagline">They didn't wait for your permission.<br>What's already happening never does.</p>
+  <section class="section-tagline">
+    <div class="tagline-wrap">
+      <div class="tagline-line1">
+        <span class="word">What</span>
+        <span class="word">we</span>
+        <span class="word">do</span>
+        <span class="word">is</span>
+      </div>
+      <div class="tagline-line2">
+        <span class="word secret">secret.</span>
+      </div>
+    </div>
+  </section>
 
-    <div>
-      <p class="products-label">PRODUCTS</p>
-      <p class="product-line">
-        <a class="product-link" href="https://nytjar.com" target="_blank" rel="noopener noreferrer">NYTJAR</a>
+  <section class="section-statement">
+    <div class="statement-wrap">
+      <span class="word">We</span>
+      <span class="word">build</span>
+      <span class="word">the</span>
+      <span class="word">counter-party.</span>
+    </div>
+  </section>
+
+  <section class="section-product">
+    <div class="product-wrap">
+      <a href="https://nytjar.com" target="_blank" class="product-name word">NYTJAR</a>
+      <p class="product-desc word">
+        DNS-layer edge protection for licensed practices.
       </p>
     </div>
+  </section>
 
-    <p class="contact">
-      <a href="mailto:hello@ulteriorwerks.com">hello@ulteriorwerks.com</a>
-    </p>
+  <section class="section-footer">
+    <div class="footer-wrap">
+      <a href="mailto:hello@ulteriorwerks.com" class="footer-email">
+        hello@ulteriorwerks.com
+      </a>
+      <p class="footer-legal">
+        ULTERIOR WERKS LLC — LAFAYETTE, LOUISIANA
+      </p>
+      <p class="footer-copy">© 2026</p>
+    </div>
+  </section>
 
-    <p class="footer">© 2026 Ulterior Werks LLC</p>
-  </main>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    function animateWords(section, stagger) {
+      const words = section.querySelectorAll('.word');
+      gsap.to(words, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: stagger || 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 65%',
+          toggleActions: 'play none none none'
+        }
+      });
+    }
+
+    document.querySelectorAll('.section-tagline, .section-statement, .section-product').forEach(function(section) {
+      animateWords(section, 0.12);
+    });
+  </script>
 </body>
 </html>
