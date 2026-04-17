@@ -126,14 +126,14 @@
     }
 
     .copy-wrap {
-      max-width: 680px;
+      max-width: 900px;
       padding: 0 40px;
     }
 
     .copy-line {
       font-family: 'IBM Plex Sans', sans-serif;
       font-weight: 300;
-      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-size: clamp(2.4rem, 4.5vw, 4.5rem);
       color: var(--text-primary);
       line-height: 1.4;
       margin: 0 0 4px;
@@ -383,24 +383,57 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    function animateWords(section, stagger) {
-      const words = section.querySelectorAll('.word');
-      gsap.to(words, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: stagger || 0.12,
-        ease: 'power3.out',
+    const section = document.querySelector('.section-copy');
+    const words = section.querySelectorAll('.word');
+
+    words.forEach(function(word, i) {
+      gsap.fromTo(word,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: word,
+            start: 'top 90%',
+            end: 'top 30%',
+            scrub: 0.8,
+            toggleActions: 'play reverse play reverse'
+          }
+        }
+      );
+
+      gsap.to(word, {
+        opacity: 0,
+        y: -60,
+        ease: 'power2.in',
         scrollTrigger: {
-          trigger: section,
-          start: 'top 65%',
-          toggleActions: 'play none none none'
+          trigger: word,
+          start: 'top 10%',
+          end: 'top -30%',
+          scrub: 0.8
         }
       });
-    }
+    });
 
-    document.querySelectorAll('.section-copy, .section-statement, .section-product').forEach(function(section) {
-      animateWords(section, 0.12);
+    const productWords = document.querySelectorAll(
+      '.section-product .word'
+    );
+    productWords.forEach(function(word) {
+      gsap.fromTo(word,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: word,
+            start: 'top 90%',
+            end: 'top 30%',
+            scrub: 0.8
+          }
+        }
+      );
     });
   </script>
   <div class="ticker-bar" aria-hidden="true">
