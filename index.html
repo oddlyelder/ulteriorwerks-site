@@ -377,6 +377,7 @@
   </section>
 
   <script>
+window.addEventListener('load', function() {
 gsap.registerPlugin(ScrollTrigger);
 
 const copySection = document.querySelector('.section-copy');
@@ -445,6 +446,7 @@ productWords.forEach(function(word, i) {
     }
   );
 });
+}); // end window load
   </script>
   <div class="ticker-bar" aria-hidden="true">
     <div class="ticker-track">
