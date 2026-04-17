@@ -378,75 +378,50 @@
 
   <script>
 window.addEventListener('load', function() {
-gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-const copySection = document.querySelector('.section-copy');
-const lines = copySection.querySelectorAll('.copy-line');
-
-gsap.set(lines, { opacity: 0, y: 30 });
-
-lines.forEach(function(line, i) {
-  gsap.fromTo(line,
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: 'power2.out',
-      delay: i * 0.5,
-      scrollTrigger: {
-        trigger: copySection,
-        start: 'top 50%',
-        toggleActions: 'play none none reverse'
-      }
+  gsap.from('.copy-line', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    ease: 'power2.out',
+    stagger: 0.4,
+    scrollTrigger: {
+      trigger: '.section-copy',
+      start: 'top bottom',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse'
     }
-  );
-});
+  });
 
-const signalLines = document.querySelectorAll(
-  '.section-signal .signal-line'
-);
-gsap.set(signalLines, { opacity: 0, y: 30 });
-signalLines.forEach(function(line, i) {
-  gsap.fromTo(line,
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      delay: i * 0.3,
-      scrollTrigger: {
-        trigger: '.section-signal',
-        start: 'top 75%',
-        toggleActions: 'play none none reverse'
-      }
+  gsap.from('.signal-line', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    ease: 'power2.out',
+    stagger: 0.3,
+    scrollTrigger: {
+      trigger: '.section-signal',
+      start: 'top bottom',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse'
     }
-  );
-});
+  });
 
-const productWords = document.querySelectorAll(
-  '.section-product .word'
-);
-gsap.set(productWords, { opacity: 0, y: 30 });
-productWords.forEach(function(word, i) {
-  gsap.fromTo(word,
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      delay: i * 0.2,
-      scrollTrigger: {
-        trigger: '.section-product',
-        start: 'top 75%',
-        toggleActions: 'play none none reverse'
-      }
+  gsap.from('.section-product .word', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    ease: 'power2.out',
+    stagger: 0.2,
+    scrollTrigger: {
+      trigger: '.section-product',
+      start: 'top bottom',
+      end: 'top 20%',
+      toggleActions: 'play none none reverse'
     }
-  );
+  });
 });
-}); // end window load
   </script>
   <div class="ticker-bar" aria-hidden="true">
     <div class="ticker-track">
