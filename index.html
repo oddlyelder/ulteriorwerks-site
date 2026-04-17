@@ -77,27 +77,27 @@
 
     .section-copy {
       min-height: 100vh;
-      padding: 15vh 0;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      padding: 15vh 0 15vh 15vw;
     }
 
     .copy-wrap {
-      max-width: 800px;
-      padding: 0 40px;
+      max-width: 900px;
+      padding: 0 60px;
+      width: 100%;
     }
 
     .copy-line {
       font-family: 'IBM Plex Sans', sans-serif;
       font-weight: 300;
-      font-size: clamp(2rem, 3.2vw, 3.2rem);
+      font-size: clamp(1.6rem, 2.4vw, 2.6rem);
       color: var(--text-primary);
-      line-height: 1.4;
+      line-height: 1.5;
       margin: 0 0 2px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25em;
+      white-space: nowrap;
+      overflow: visible;
     }
 
     .copy-indent {
@@ -106,7 +106,7 @@
     }
 
     .copy-gap {
-      margin-top: 2.5em;
+      margin-top: 1.8em;
     }
 
     .section-signal {
