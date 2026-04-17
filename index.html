@@ -386,59 +386,93 @@
   </section>
 
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-    const section = document.querySelector('.section-copy');
-    const words = section.querySelectorAll('.word');
+const copySection = document.querySelector('.section-copy');
+const words = copySection.querySelectorAll('.word');
 
-    words.forEach(function(word) {
-      gsap.fromTo(word,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: word,
-            start: 'top 90%',
-            end: 'top 30%',
-            scrub: 0.8,
-            toggleActions: 'play reverse play reverse'
-          }
-        }
-      );
+gsap.set(words, { opacity: 0, y: 50 });
 
-      gsap.to(word, {
-        opacity: 0,
-        y: -60,
-        ease: 'power2.in',
-        scrollTrigger: {
-          trigger: word,
-          start: 'top 10%',
-          end: 'top -30%',
-          scrub: 0.8
-        }
-      });
+ScrollTrigger.create({
+  trigger: '.section-copy',
+  start: 'top top',
+  end: 'bottom top',
+  pin: true,
+  pinSpacing: true,
+  onUpdate: function(self) {
+    const progress = self.progress;
+    const total = words.length;
+    words.forEach(function(word, i) {
+      const wordStart = i / total;
+      const wordPeak = (i + 0.5) / total;
+      const wordEnd = (i + 1.5) / total;
+      
+      let opacity = 0;
+      let y = 50;
+      
+      if (progress >= wordStart && progress <= wordPeak) {
+        const p = (progress - wordStart) / (wordPeak - wordStart);
+        opacity = p;
+        y = 50 * (1 - p);
+      } else if (progress > wordPeak && progress <= wordEnd) {
+        const p = (progress - wordPeak) / (wordEnd - wordPeak);
+        opacity = 1 - p;
+        y = -50 * p;
+      }
+      
+      gsap.set(word, { opacity: opacity, y: y });
     });
+  }
+});
 
-    document.querySelectorAll('.section-signal, .section-product').forEach(function(section) {
-      section.querySelectorAll('.word').forEach(function(word) {
-        gsap.fromTo(word,
-          { opacity: 0, y: 60 },
-          {
-            opacity: 1,
-            y: 0,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: word,
-              start: 'top 90%',
-              end: 'top 30%',
-              scrub: 0.8
-            }
-          }
-        );
-      });
-    });
+const signalWords = document.querySelectorAll('.section-signal .word');
+gsap.set(signalWords, { opacity: 0, y: 60 });
+signalWords.forEach(function(word) {
+  gsap.fromTo(word,
+    { opacity: 0, y: 60 },
+    {
+      opacity: 1,
+      y: 0,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: word,
+        start: 'top 90%',
+        end: 'top 30%',
+        scrub: 0.8
+      }
+    }
+  );
+  gsap.to(word, {
+    opacity: 0,
+    y: -60,
+    ease: 'power2.in',
+    scrollTrigger: {
+      trigger: word,
+      start: 'top 10%',
+      end: 'top -30%',
+      scrub: 0.8
+    }
+  });
+});
+
+const productWords = document.querySelectorAll('.section-product .word');
+gsap.set(productWords, { opacity: 0, y: 60 });
+productWords.forEach(function(word) {
+  gsap.fromTo(word,
+    { opacity: 0, y: 60 },
+    {
+      opacity: 1,
+      y: 0,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: word,
+        start: 'top 90%',
+        end: 'top 30%',
+        scrub: 0.8
+      }
+    }
+  );
+});
   </script>
   <div class="ticker-bar" aria-hidden="true">
     <div class="ticker-track">
