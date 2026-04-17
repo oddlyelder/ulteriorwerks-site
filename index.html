@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ulterior Werks LLC</title>
+  <title>ULTERIOR | WERKS</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,52 +69,10 @@
       letter-spacing: -0.05em;
     }
 
-    .section-tagline {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tagline-wrap {
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: clamp(5vw, 7vw, 9vw);
-      line-height: 1.1;
-    }
-
-    .tagline-line1 {
-      font-weight: 300;
-      color: var(--text-primary);
-      display: flex;
-      gap: 0.25em;
-      justify-content: center;
-      margin-bottom: 0.1em;
-    }
-
-    .tagline-line2 {
-      font-weight: 400;
-      color: var(--text-primary);
-      display: flex;
-      justify-content: center;
-    }
-
-    .secret {
-      letter-spacing: 0.18em;
-      font-size: 110%;
-    }
-
     .word {
       display: inline-block;
       opacity: 0;
       transform: translateY(40px);
-    }
-
-    .section-statement {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .section-copy {
@@ -149,16 +107,6 @@
 
     .copy-gap {
       margin-top: 2.5em;
-    }
-
-    .statement-wrap {
-      font-family: var(--font-display);
-      font-weight: 300;
-      font-size: clamp(4vw, 6vw, 8vw);
-      color: var(--text-muted);
-      display: flex;
-      gap: 0.25em;
-      text-align: center;
     }
 
     .section-signal {
@@ -423,10 +371,7 @@
     <div class="footer-wrap">
       <p class="footer-select">SELECT ENGAGEMENTS ONLY</p>
       <p class="footer-inquiries">SECURE INQUIRIES</p>
-      <a href="mailto:hello@ulteriorwerks.com"
-         class="footer-email">
-        hello@ulteriorwerks.com
-      </a>
+      <a href="mailto:hello@ulteriorwerks.com" class="footer-email">hello@ulteriorwerks.com</a>
       <p class="footer-pgp">PGP available upon request</p>
       <p class="footer-legal">
         ULTERIOR WERKS LLC — LAFAYETTE, LOUISIANA
@@ -442,7 +387,7 @@
     const section = document.querySelector('.section-copy');
     const words = section.querySelectorAll('.word');
 
-    words.forEach(function(word, i) {
+    words.forEach(function(word) {
       gsap.fromTo(word,
         { opacity: 0, y: 60 },
         {
@@ -472,10 +417,7 @@
       });
     });
 
-    document.querySelectorAll('.section-copy, .section-statement, .section-signal, .section-product').forEach(function(section) {
-      if (section.classList.contains('section-copy')) {
-        return;
-      }
+    document.querySelectorAll('.section-signal, .section-product').forEach(function(section) {
       section.querySelectorAll('.word').forEach(function(word) {
         gsap.fromTo(word,
           { opacity: 0, y: 60 },
