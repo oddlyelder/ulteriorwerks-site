@@ -161,6 +161,31 @@
       text-align: center;
     }
 
+    .section-signal {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+    }
+
+    .signal-wrap {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .signal-line {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin: 0;
+      display: block;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
     .section-product {
       height: 100vh;
       display: flex;
@@ -270,6 +295,38 @@
       letter-spacing: 0.08em;
       margin: 0;
     }
+
+    .footer-select {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      margin: 0 0 32px;
+    }
+
+    .footer-inquiries {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      margin: 0 0 8px;
+    }
+
+    .footer-pgp {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+      margin: 8px 0 32px;
+    }
+
+    .footer-est {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--text-faint);
+      margin: 16px 0 4px;
+    }
   </style>
 </head>
 <body>
@@ -351,6 +408,13 @@
     </div>
   </section>
 
+  <section class="section-signal">
+    <div class="signal-wrap">
+      <p class="signal-line word">If visibility increases your risk surface,</p>
+      <p class="signal-line word">you are already operating in our environment.</p>
+    </div>
+  </section>
+
   <section class="section-product">
     <div class="product-wrap">
       <a href="https://nytjar.com" target="_blank" class="product-name word">NYTJAR</a>
@@ -362,12 +426,17 @@
 
   <section class="section-footer">
     <div class="footer-wrap">
-      <a href="mailto:hello@ulteriorwerks.com" class="footer-email">
+      <p class="footer-select">SELECT ENGAGEMENTS ONLY</p>
+      <p class="footer-inquiries">SECURE INQUIRIES</p>
+      <a href="mailto:hello@ulteriorwerks.com"
+         class="footer-email">
         hello@ulteriorwerks.com
       </a>
+      <p class="footer-pgp">PGP available upon request</p>
       <p class="footer-legal">
         ULTERIOR WERKS LLC — LAFAYETTE, LOUISIANA
       </p>
+      <p class="footer-est">EST. 2026</p>
       <p class="footer-copy">© 2026</p>
     </div>
   </section>
@@ -408,24 +477,26 @@
       });
     });
 
-    const productWords = document.querySelectorAll(
-      '.section-product .word'
-    );
-    productWords.forEach(function(word) {
-      gsap.fromTo(word,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: word,
-            start: 'top 90%',
-            end: 'top 30%',
-            scrub: 0.8
+    document.querySelectorAll('.section-copy, .section-statement, .section-signal, .section-product').forEach(function(section) {
+      if (section.classList.contains('section-copy')) {
+        return;
+      }
+      section.querySelectorAll('.word').forEach(function(word) {
+        gsap.fromTo(word,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: word,
+              start: 'top 90%',
+              end: 'top 30%',
+              scrub: 0.8
+            }
           }
-        }
-      );
+        );
+      });
     });
   </script>
   <div class="ticker-bar" aria-hidden="true">
