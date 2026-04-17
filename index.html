@@ -380,45 +380,44 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const copySection = document.querySelector('.section-copy');
-const words = copySection.querySelectorAll('.word');
+const lines = copySection.querySelectorAll('.copy-line');
 
-gsap.set(words, { opacity: 0, y: 40 });
+gsap.set(lines, { opacity: 0, y: 30 });
 
-words.forEach(function(word, i) {
-  const delay = i * 0.15;
-
-  gsap.fromTo(word,
-    { opacity: 0, y: 40 },
+lines.forEach(function(line, i) {
+  gsap.fromTo(line,
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
-      duration: 0.6,
+      duration: 0.8,
       ease: 'power2.out',
+      delay: i * 0.3,
       scrollTrigger: {
         trigger: copySection,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
-        delay: delay
+        start: 'top 75%',
+        toggleActions: 'play none none reverse'
       }
     }
   );
 });
 
-const signalWords = document.querySelectorAll(
-  '.section-signal .word'
+const signalLines = document.querySelectorAll(
+  '.section-signal .signal-line'
 );
-gsap.set(signalWords, { opacity: 0, y: 40 });
-signalWords.forEach(function(word) {
-  gsap.fromTo(word,
-    { opacity: 0, y: 40 },
+gsap.set(signalLines, { opacity: 0, y: 30 });
+signalLines.forEach(function(line, i) {
+  gsap.fromTo(line,
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
-      duration: 0.6,
+      duration: 0.8,
       ease: 'power2.out',
+      delay: i * 0.3,
       scrollTrigger: {
-        trigger: word,
-        start: 'top 85%',
+        trigger: '.section-signal',
+        start: 'top 75%',
         toggleActions: 'play none none reverse'
       }
     }
@@ -428,18 +427,19 @@ signalWords.forEach(function(word) {
 const productWords = document.querySelectorAll(
   '.section-product .word'
 );
-gsap.set(productWords, { opacity: 0, y: 40 });
-productWords.forEach(function(word) {
+gsap.set(productWords, { opacity: 0, y: 30 });
+productWords.forEach(function(word, i) {
   gsap.fromTo(word,
-    { opacity: 0, y: 40 },
+    { opacity: 0, y: 30 },
     {
       opacity: 1,
       y: 0,
-      duration: 0.6,
+      duration: 0.8,
       ease: 'power2.out',
+      delay: i * 0.2,
       scrollTrigger: {
-        trigger: word,
-        start: 'top 85%',
+        trigger: '.section-product',
+        start: 'top 75%',
         toggleActions: 'play none none reverse'
       }
     }
