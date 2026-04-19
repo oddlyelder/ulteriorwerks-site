@@ -5,143 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ULTERIOR | WERKS</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
   width: 100%;
   height: 100%;
-  background: #0D0B0B;
+  background: #29304d;
   overflow: hidden;
-}
-.hero {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 25vh;
-}
-.wordmark {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: clamp(10vw, 16vw, 18vw);
-  color: #CC1111;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  white-space: nowrap;
-  margin-left: -1.5vw;
-  position: relative;
-  z-index: 10;
-}
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
 }
 </style>
 </head>
 <body>
-<section class="hero">
-  <canvas id="matrix"></canvas>
-  <h1 class="wordmark">ULTERIOR|WERKS</h1>
-</section>
-<script>
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const fragments = [
-  'refusal',
-  'without traceability',
-  'off the record',
-  'continuous extraction',
-  'only the beginning'
-];
-
-const fontSize = 13;
-const colWidth = fontSize * 1.3;
-const cols = Math.floor(canvas.width / colWidth);
-const drops = [];
-const speeds = [];
-const opacities = [];
-const glitching = [];
-
-for (let i = 0; i < cols; i++) {
-  drops[i] = Math.random() * -canvas.height;
-  speeds[i] = 0.4 + Math.random() * 0.8;
-  opacities[i] = 0.08 + Math.random() * 0.12;
-  glitching[i] = false;
-}
-
-function getChar() {
-  const fragment = fragments[Math.floor(Math.random() * fragments.length)];
-  return fragment[Math.floor(Math.random() * fragment.length)];
-}
-
-function draw() {
-  ctx.fillStyle = 'rgba(13, 11, 11, 0.08)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.font = fontSize + 'px "JetBrains Mono", monospace';
-
-  for (let i = 0; i < cols; i++) {
-    const opacity = glitching[i] ? 0.6 : opacities[i];
-    const x = i * colWidth;
-    const y = drops[i];
-
-    ctx.fillStyle = 'rgba(204, 17, 17, ' + opacity + ')';
-    ctx.shadowColor = 'rgba(204, 17, 17, 0.4)';
-    ctx.shadowBlur = glitching[i] ? 12 : 6;
-
-    const char = glitching[i]
-      ? String.fromCharCode(33 + Math.floor(Math.random() * 94))
-      : getChar();
-
-    if (glitching[i]) {
-      ctx.fillStyle = 'rgba(255, 80, 80, ' + opacity + ')';
-    }
-
-    ctx.fillText(char, x, y);
-
-    drops[i] += speeds[i] * fontSize;
-
-    if (drops[i] > canvas.height && Math.random() > 0.95) {
-      drops[i] = Math.random() * -200;
-    }
-  }
-
-  ctx.shadowBlur = 0;
-}
-
-setInterval(draw, 33);
-
-function triggerGlitch() {
-  const count = 2 + Math.floor(Math.random() * 4);
-  for (let i = 0; i < count; i++) {
-    const col = Math.floor(Math.random() * cols);
-    glitching[col] = true;
-    setTimeout(function() {
-      glitching[col] = false;
-    }, 80 + Math.random() * 150);
-  }
-  setTimeout(triggerGlitch, 3000 + Math.random() * 7000);
-}
-
-setTimeout(triggerGlitch, 2000);
-
-window.addEventListener('resize', function() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
-</script>
 </body>
 </html>
