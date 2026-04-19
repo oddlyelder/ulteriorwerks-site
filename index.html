@@ -5,16 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ULTERIOR | WERKS</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
   width: 100%;
   height: 100%;
-  background: #29304d;
   overflow: hidden;
+}
+.hero {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-bottom: 8vh;
+  padding-left: 2vw;
+}
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.wordmark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(10vw, 13vw, 18vw);
+  color: #F0EDE6;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  position: relative;
+  z-index: 10;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.8);
 }
 </style>
 </head>
 <body>
+<section class="hero">
+  <img class="bg" src="ChatGPT_Image_Apr_19__2026__10_50_22_AM.png" alt="">
+  <h1 class="wordmark">ULTERIOR|WERKS</h1>
+</section>
 </body>
 </html>
