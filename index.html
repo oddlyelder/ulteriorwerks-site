@@ -61,6 +61,7 @@ html, body {
   align-items: center;
   justify-content: flex-start;
   transform: scaleY(-1);
+  isolation: isolate;
 }
 
 .manifesto-bg {
@@ -72,6 +73,8 @@ html, body {
   object-fit: cover;
   object-position: center;
   z-index: 0;
+  transform: scaleY(-1);
+  isolation: isolate;
 }
 
 .manifesto-overlay {
