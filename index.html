@@ -68,7 +68,7 @@ const fragments = [
 ];
 
 const fontSize = 13;
-const colWidth = fontSize * 1.2;
+const colWidth = fontSize * 2.5;
 const cols = Math.floor(canvas.width / colWidth);
 const drops = [];
 const speeds = [];
@@ -88,7 +88,7 @@ function getChar() {
 }
 
 function draw() {
-  ctx.fillStyle = 'rgba(13, 11, 11, 0.05)';
+  ctx.fillStyle = 'rgba(13, 11, 11, 0.08)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.font = fontSize + 'px "JetBrains Mono", monospace';
@@ -114,7 +114,7 @@ function draw() {
 
     drops[i] += speeds[i] * fontSize;
 
-    if (drops[i] > canvas.height && Math.random() > 0.975) {
+    if (drops[i] > canvas.height && Math.random() > 0.95) {
       drops[i] = Math.random() * -200;
     }
   }
