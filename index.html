@@ -52,8 +52,11 @@ html, body {
   white-space: nowrap;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 13px;
   color: #CC1111;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-shadow: 0 0 8px rgba(204, 17, 17, 0.6), 0 0 20px rgba(204, 17, 17, 0.3);
   -webkit-mask-image: linear-gradient(to right, 
     rgba(0,0,0,0) 0%, 
     rgba(0,0,0,1) 8%, 
@@ -101,7 +104,7 @@ const fragments = [
 ];
 
 const container = document.getElementById('streams');
-const numStreams = 18;
+const numStreams = 28;
 const usedRows = [];
 
 for (let i = 0; i < numStreams; i++) {
@@ -121,7 +124,7 @@ for (let i = 0; i < numStreams; i++) {
     attempts++;
   } while (
     attempts < 30 &&
-    usedRows.some(function(r) { return Math.abs(r - top) < 3; })
+    usedRows.some(function(r) { return Math.abs(r - top) < 1.8; })
   );
   usedRows.push(top);
 
