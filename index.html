@@ -94,6 +94,42 @@ html, body {
   opacity: 0.25;
   pointer-events: none;
 }
+
+.manifesto-copy {
+  position: relative;
+  z-index: 3;
+  padding: 8vh 8vw;
+  max-width: 900px;
+}
+
+.manifesto-line {
+  font-family: 'Steelfish', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  color: #F0EDE6;
+  line-height: 1.3;
+  margin-bottom: 1.5em;
+  position: relative;
+  display: block;
+}
+
+.manifesto-line::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  top: 0;
+  color: rgba(255, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.manifesto-line::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: rgba(0, 100, 255, 0.5);
+  z-index: -1;
+}
 </style>
 </head>
 <body>
@@ -105,6 +141,24 @@ html, body {
   <img class="manifesto-bg" src="evil-robot.png" alt="">
   <div class="manifesto-overlay"></div>
   <canvas class="manifesto-static" id="manifesto-static"></canvas>
+  <div class="manifesto-copy">
+    <span class="manifesto-line" 
+      data-text="placeholder line one.">
+      placeholder line one.
+    </span>
+    <span class="manifesto-line" 
+      data-text="placeholder line two.">
+      placeholder line two.
+    </span>
+    <span class="manifesto-line" 
+      data-text="placeholder line three.">
+      placeholder line three.
+    </span>
+    <span class="manifesto-line" 
+      data-text="placeholder line four.">
+      placeholder line four.
+    </span>
+  </div>
 </section>
 <script>
 const mCanvas = document.getElementById('manifesto-static');
