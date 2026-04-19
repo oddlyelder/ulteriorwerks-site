@@ -16,13 +16,13 @@ html, body {
   background: #0D0B0B;
   overflow: hidden;
 }
-.section-wordmark {
+.hero {
   height: 100vh;
   width: 100vw;
   position: relative;
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
   padding-top: 18vh;
 }
 .wordmark {
@@ -37,7 +37,7 @@ html, body {
   position: relative;
   z-index: 10;
 }
-.fragments {
+.streams {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,62 +46,127 @@ html, body {
   z-index: 1;
   pointer-events: none;
 }
-.fragment {
+.stream {
   position: absolute;
+  left: 0;
+  white-space: nowrap;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
+  font-size: 15px;
   color: #CC1111;
-  white-space: nowrap;
+  opacity: 0;
+  -webkit-mask-image: linear-gradient(to right, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 8%, 
+    rgba(0,0,0,1) 70%, 
+    rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to right, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 8%, 
+    rgba(0,0,0,1) 70%, 
+    rgba(0,0,0,0) 100%);
+}
+@keyframes glitch {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-3px); clip-path: inset(20% 0 60% 0); }
+  21%  { transform: translateX(3px); clip-path: inset(20% 0 60% 0); }
+  22%  { transform: translateX(0); clip-path: none; }
+  60%  { transform: translateX(0); }
+  80%  { transform: translateX(2px); clip-path: inset(55% 0 30% 0); }
+  81%  { transform: translateX(-2px); clip-path: inset(55% 0 30% 0); }
+  82%  { transform: translateX(0); clip-path: none; }
+  100% { transform: translateX(0); }
+}
+.glitching {
+  animation: glitch 0.15s steps(1) forwards;
 }
 </style>
 </head>
 <body>
-<section class="section-wordmark">
-  <div class="fragments" id="fragments"></div>
+<section class="hero">
+  <div class="streams" id="streams"></div>
   <h1 class="wordmark">ULTERIOR|WERKS</h1>
 </section>
 <script>
 const fragments = [
-  { text: 'refusal', size: 9 },
-  { text: 'continuous extraction', size: 4.5 },
-  { text: 'without traceability', size: 3.5 },
-  { text: 'off the record', size: 2.5 },
-  { text: 'only the beginning', size: 1.8 }
+  'refusal',
+  'without traceability',
+  'off the record',
+  'continuous extraction',
+  'only the beginning',
+  'refusal',
+  'without traceability',
+  'off the record',
+  'continuous extraction',
+  'only the beginning'
 ];
 
-const container = document.getElementById('fragments');
-const wordmarkTop = 18;
-const wordmarkBottom = 18 + 22;
+const container = document.getElementById('streams');
+const numStreams = 18;
+const usedRows = [];
 
-fragments.forEach(function(f) {
-  const el = document.createElement('span');
-  el.className = 'fragment';
-  el.textContent = f.text;
+for (let i = 0; i < numStreams; i++) {
+  const stream = document.createElement('div');
+  stream.className = 'stream';
 
-  let top, left;
+  const text = Array.from({length: 12}, function() {
+    return fragments[Math.floor(Math.random() * fragments.length)];
+  }).join('   ·   ');
+
+  stream.textContent = text;
+
+  let top;
   let attempts = 0;
   do {
-    top = Math.random() * 85;
-    left = Math.random() * 80;
+    top = 2 + Math.random() * 94;
     attempts++;
   } while (
-    attempts < 20 &&
-    top > wordmarkTop - 5 &&
-    top < wordmarkBottom + 5 &&
-    left < 90
+    attempts < 30 &&
+    usedRows.some(function(r) { return Math.abs(r - top) < 3; })
   );
+  usedRows.push(top);
 
-  const rotation = (Math.random() * 16) - 8;
-  const opacity = 0.06 + Math.random() * 0.09;
+  const duration = 18 + Math.random() * 24;
+  const delay = Math.random() * -30;
+  const opacity = 0.04 + Math.random() * 0.07;
 
-  el.style.top = top + 'vh';
-  el.style.left = left + 'vw';
-  el.style.fontSize = f.size + 'vw';
-  el.style.transform = 'rotate(' + rotation + 'deg)';
-  el.style.opacity = opacity;
+  stream.style.top = top + 'vh';
+  stream.style.opacity = opacity;
+  stream.style.animation = 'none';
 
-  container.appendChild(el);
-});
+  container.appendChild(stream);
+
+  let position = -800;
+  const speed = (window.innerWidth + 1600) / (duration * 60);
+
+  function animate(el, pos, spd) {
+    let p = pos;
+    function step() {
+      p += spd;
+      if (p > window.innerWidth + 800) p = -800;
+      el.style.transform = 'translateX(' + p + 'px)';
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  animate(stream, position + delay * speed, speed);
+}
+
+function triggerGlitch() {
+  const streams = document.querySelectorAll('.stream');
+  const count = 2 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < count; i++) {
+    const el = streams[Math.floor(Math.random() * streams.length)];
+    el.classList.add('glitching');
+    setTimeout(function() {
+      el.classList.remove('glitching');
+    }, 200);
+  }
+  setTimeout(triggerGlitch, 4000 + Math.random() * 8000);
+}
+
+setTimeout(triggerGlitch, 3000);
 </script>
 </body>
 </html>
