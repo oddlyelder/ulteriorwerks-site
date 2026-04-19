@@ -80,8 +80,19 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(114, 148, 245, 0.88);
+  background: rgba(114, 148, 245, 0.15);
   z-index: 1;
+}
+
+.manifesto-static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.08;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -93,6 +104,41 @@ html, body {
 <section class="manifesto">
   <img class="manifesto-bg" src="evil-robot.png" alt="">
   <div class="manifesto-overlay"></div>
+  <canvas class="manifesto-static" id="manifesto-static"></canvas>
 </section>
+<script>
+const mCanvas = document.getElementById('manifesto-static');
+const mCtx = mCanvas.getContext('2d');
+
+function resizeCanvas() {
+  mCanvas.width = mCanvas.offsetWidth;
+  mCanvas.height = mCanvas.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function drawStatic() {
+  const w = mCanvas.width;
+  const h = mCanvas.height;
+  const imageData = mCtx.createImageData(w, h);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const val = Math.random() > 0.5 ? 255 : 0;
+    data[i] = val;
+    data[i+1] = val;
+    data[i+2] = val;
+    data[i+3] = Math.random() * 200;
+  }
+  mCtx.putImageData(imageData, 0, 0);
+  if (Math.random() > 0.92) {
+    const y = Math.random() * h;
+    const ht = 1 + Math.random() * 4;
+    const shift = (Math.random() - 0.5) * 12;
+    mCtx.drawImage(mCanvas, 0, y, w, ht, shift, y, w, ht);
+  }
+  requestAnimationFrame(drawStatic);
+}
+drawStatic();
+</script>
 </body>
 </html>
