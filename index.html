@@ -73,7 +73,6 @@ html, body {
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  transform: scaleY(-1);
   isolation: isolate;
 }
 
@@ -99,7 +98,10 @@ html, body {
 }
 
 .manifesto-copy {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 3;
   padding: 8vh 8vw;
   max-width: 900px;
@@ -140,11 +142,13 @@ html, body {
   <img class="bg" src="evil-robot.png" alt="">
   <h1 class="wordmark">ulterior|werks</h1>
 </section>
+<div style="position:relative;">
 <section class="manifesto">
   <img class="manifesto-bg" src="evil-robot.png" alt="">
   <div class="manifesto-overlay"></div>
   <canvas class="manifesto-static" id="manifesto-static"></canvas>
-  <div class="manifesto-copy">
+</section>
+<div class="manifesto-copy">
     <span class="manifesto-line" 
       data-text="placeholder line one.">
       placeholder line one.
@@ -161,8 +165,8 @@ html, body {
       data-text="placeholder line four.">
       placeholder line four.
     </span>
-  </div>
-</section>
+</div>
+</div>
 <script>
 const mCanvas = document.getElementById('manifesto-static');
 const mCtx = mCanvas.getContext('2d');
