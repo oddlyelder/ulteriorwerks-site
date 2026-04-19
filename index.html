@@ -28,7 +28,7 @@ html, body {
 .wordmark {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 800;
-  font-size: clamp(10vw, 11vw, 18vw);
+  font-size: clamp(10vw, 14vw, 18vw);
   color: #CC1111;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -54,7 +54,6 @@ html, body {
   font-weight: 300;
   font-size: 15px;
   color: #CC1111;
-  opacity: 0;
   -webkit-mask-image: linear-gradient(to right, 
     rgba(0,0,0,0) 0%, 
     rgba(0,0,0,1) 8%, 
@@ -128,7 +127,7 @@ for (let i = 0; i < numStreams; i++) {
 
   const duration = 18 + Math.random() * 24;
   const delay = Math.random() * -30;
-  const opacity = 0.04 + Math.random() * 0.07;
+  const opacity = 0.15 + Math.random() * 0.15;
 
   stream.style.top = top + 'vh';
   stream.style.opacity = opacity;
