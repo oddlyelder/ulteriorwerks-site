@@ -7,38 +7,101 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
   width: 100%;
   height: 100%;
   background: #0D0B0B;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .section-wordmark {
   height: 100vh;
+  width: 100vw;
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   padding-top: 18vh;
-  overflow: hidden;
 }
 .wordmark {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 800;
-  font-size: clamp(10vw, 16vw, 18vw);
+  font-size: clamp(10vw, 11vw, 18vw);
   color: #CC1111;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
   margin-left: -1vw;
+  position: relative;
+  z-index: 10;
+}
+.fragments {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.fragment {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  color: #CC1111;
+  white-space: nowrap;
 }
 </style>
 </head>
 <body>
 <section class="section-wordmark">
+  <div class="fragments" id="fragments"></div>
   <h1 class="wordmark">ULTERIOR|WERKS</h1>
 </section>
+<script>
+const fragments = [
+  { text: 'refusal', size: 9 },
+  { text: 'continuous extraction', size: 4.5 },
+  { text: 'without traceability', size: 3.5 },
+  { text: 'off the record', size: 2.5 },
+  { text: 'only the beginning', size: 1.8 }
+];
+
+const container = document.getElementById('fragments');
+const wordmarkTop = 18;
+const wordmarkBottom = 18 + 22;
+
+fragments.forEach(function(f) {
+  const el = document.createElement('span');
+  el.className = 'fragment';
+  el.textContent = f.text;
+
+  let top, left;
+  let attempts = 0;
+  do {
+    top = Math.random() * 85;
+    left = Math.random() * 80;
+    attempts++;
+  } while (
+    attempts < 20 &&
+    top > wordmarkTop - 5 &&
+    top < wordmarkBottom + 5 &&
+    left < 90
+  );
+
+  const rotation = (Math.random() * 16) - 8;
+  const opacity = 0.06 + Math.random() * 0.09;
+
+  el.style.top = top + 'vh';
+  el.style.left = left + 'vw';
+  el.style.fontSize = f.size + 'vw';
+  el.style.transform = 'rotate(' + rotation + 'deg)';
+  el.style.opacity = opacity;
+
+  container.appendChild(el);
+});
+</script>
 </body>
 </html>
