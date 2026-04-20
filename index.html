@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ULTERIOR | WERKS</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULTERIOR | WERKS</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
 @font-face {
   font-family: 'Steelfish';
   src: url('SteelfishEb.otf') format('opentype');
@@ -135,74 +135,74 @@ html, body {
   z-index: 1;
   pointer-events: none;
 }
-</style>
+  </style>
 </head>
 <body>
 
-<section class="hero">
-  <img class="bg" src="evil-robot.png" alt="">
-  <h1 class="wordmark">ulterior|werks</h1>
-</section>
+  <section class="hero">
+    <img class="bg" src="evil-robot.png" alt="">
+    <h1 class="wordmark">ulterior|werks</h1>
+  </section>
 
-<div class="manifesto-wrap">
-  <div class="manifesto">
-    <img class="manifesto-bg" src="evil-robot.png" alt="">
-    <div class="manifesto-overlay"></div>
-    <canvas class="manifesto-static" id="manifesto-static"></canvas>
+  <div class="manifesto-wrap">
+    <div class="manifesto">
+      <img class="manifesto-bg" src="evil-robot.png" alt="">
+      <div class="manifesto-overlay"></div>
+      <canvas class="manifesto-static" id="manifesto-static"></canvas>
+    </div>
+    <div class="manifesto-copy">
+      <span class="manifesto-line"
+        data-text="placeholder line one.">
+        placeholder line one.
+      </span>
+      <span class="manifesto-line"
+        data-text="placeholder line two.">
+        placeholder line two.
+      </span>
+      <span class="manifesto-line"
+        data-text="placeholder line three.">
+        placeholder line three.
+      </span>
+      <span class="manifesto-line"
+        data-text="placeholder line four.">
+        placeholder line four.
+      </span>
+    </div>
   </div>
-  <div class="manifesto-copy">
-    <span class="manifesto-line"
-      data-text="placeholder line one.">
-      placeholder line one.
-    </span>
-    <span class="manifesto-line"
-      data-text="placeholder line two.">
-      placeholder line two.
-    </span>
-    <span class="manifesto-line"
-      data-text="placeholder line three.">
-      placeholder line three.
-    </span>
-    <span class="manifesto-line"
-      data-text="placeholder line four.">
-      placeholder line four.
-    </span>
-  </div>
-</div>
 
-<script>
-const mCanvas = document.getElementById('manifesto-static');
-const mCtx = mCanvas.getContext('2d');
+  <script>
+    const mCanvas = document.getElementById('manifesto-static');
+    const mCtx = mCanvas.getContext('2d');
 
-function resizeCanvas() {
-  mCanvas.width = mCanvas.offsetWidth;
-  mCanvas.height = mCanvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+    function resizeCanvas() {
+      mCanvas.width = mCanvas.offsetWidth;
+      mCanvas.height = mCanvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-function drawStatic() {
-  const w = mCanvas.width;
-  const h = mCanvas.height;
-  const imageData = mCtx.createImageData(w, h);
-  const data = imageData.data;
-  for (let i = 0; i < data.length; i += 4) {
-    const val = Math.random() > 0.5 ? 255 : 0;
-    data[i] = val;
-    data[i+1] = val;
-    data[i+2] = val;
-    data[i+3] = Math.random() * 200;
-  }
-  mCtx.putImageData(imageData, 0, 0);
-  if (Math.random() > 0.92) {
-    const y = Math.random() * h;
-    const ht = 1 + Math.random() * 4;
-    const shift = (Math.random() - 0.5) * 12;
-    mCtx.drawImage(mCanvas, 0, y, w, ht, shift, y, w, ht);
-  }
-  requestAnimationFrame(drawStatic);
-}
-drawStatic();
-</script>
+    function drawStatic() {
+      const w = mCanvas.width;
+      const h = mCanvas.height;
+      const imageData = mCtx.createImageData(w, h);
+      const data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const val = Math.random() > 0.5 ? 255 : 0;
+        data[i] = val;
+        data[i+1] = val;
+        data[i+2] = val;
+        data[i+3] = Math.random() * 200;
+      }
+      mCtx.putImageData(imageData, 0, 0);
+      if (Math.random() > 0.92) {
+        const y = Math.random() * h;
+        const ht = 1 + Math.random() * 4;
+        const shift = (Math.random() - 0.5) * 12;
+        mCtx.drawImage(mCanvas, 0, y, w, ht, shift, y, w, ht);
+      }
+      requestAnimationFrame(drawStatic);
+    }
+    drawStatic();
+  </script>
 </body>
 </html>
