@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ULTERIOR | WERKS</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
   <style>
 @font-face {
   font-family: 'Steelfish';
@@ -51,6 +52,19 @@ html, body {
   position: relative;
   z-index: 10;
   text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+.haiku {
+  position: absolute;
+  top: 4vh;
+  right: 3vw;
+  z-index: 10;
+  text-align: right;
+  font-family: 'Underdog', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: #7294F5;
+  line-height: 1.8;
+  pointer-events: none;
 }
 .manifesto-wrap {
   position: relative;
@@ -142,6 +156,11 @@ html, body {
   <section class="hero">
     <img class="bg" src="evil-robot.png" alt="">
     <h1 class="wordmark">ulterior|werks</h1>
+    <div class="haiku">
+      what should be private<br>
+      has become raw data in<br>
+      the AI machine
+    </div>
   </section>
 </body>
 </html>
