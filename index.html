@@ -60,13 +60,20 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    /* soft fallout veil extending transition depth */
-    linear-gradient(
-      to bottom,
-      rgba(11, 9, 8, 0.46) 0%,
-      rgba(13, 11, 9, 0.30) 14%,
-      rgba(16, 13, 11, 0.14) 30%,
-      rgba(16, 13, 11, 0.00) 56%
+    /* top smoke field (large, soft, asymmetric) */
+    radial-gradient(
+      ellipse 140% 85% at 78% -6%,
+      rgba(12, 10, 9, 0.55) 0%,
+      rgba(14, 12, 10, 0.28) 34%,
+      rgba(16, 13, 11, 0.10) 62%,
+      rgba(16, 13, 11, 0.00) 88%
+    ),
+    radial-gradient(
+      ellipse 120% 70% at 28% -10%,
+      rgba(10, 9, 8, 0.42) 0%,
+      rgba(12, 10, 9, 0.20) 38%,
+      rgba(14, 12, 10, 0.08) 66%,
+      rgba(14, 12, 10, 0.00) 90%
     ),
 
     /* restrained warm source near upper-right */
@@ -78,14 +85,13 @@
       rgba(186, 132, 82, 0.00) 44%
     ),
 
-    /* implied diagonal force lane for future robot shadow */
-    linear-gradient(
-      136deg,
-      rgba(7, 6, 5, 0.30) 10%,
-      rgba(9, 8, 7, 0.20) 27%,
-      rgba(12, 10, 9, 0.11) 46%,
-      rgba(12, 10, 9, 0.04) 64%,
-      rgba(12, 10, 9, 0.00) 78%
+    /* implied diagonal force lane (radial, not a hard linear band) */
+    radial-gradient(
+      ellipse 120% 70% at 92% 8%,
+      rgba(7, 6, 5, 0.34) 0%,
+      rgba(9, 8, 7, 0.18) 30%,
+      rgba(12, 10, 9, 0.08) 58%,
+      rgba(12, 10, 9, 0.00) 84%
     ),
 
     /* cool-brown smoke lift for dimensional balance */
@@ -111,39 +117,33 @@
 .section-two::before {
   content: "";
   position: absolute;
-  top: -12vh;
-  left: 0;
-  width: 100%;
-  height: 44vh;
+  top: -18vh;
+  left: -8vw;
+  width: 116vw;
+  height: 58vh;
   z-index: 1;
   pointer-events: none;
+  filter: blur(0.6px);
   background:
     radial-gradient(
-      ellipse at 82% -8%,
-      rgba(20, 16, 13, 0.62) 0%,
-      rgba(20, 16, 13, 0.34) 30%,
-      rgba(20, 16, 13, 0.12) 56%,
-      rgba(20, 16, 13, 0.00) 82%
+      ellipse 150% 95% at 70% -10%,
+      rgba(18, 14, 12, 0.42) 0%,
+      rgba(18, 14, 12, 0.22) 34%,
+      rgba(18, 14, 12, 0.08) 62%,
+      rgba(18, 14, 12, 0.00) 92%
     ),
     radial-gradient(
-      ellipse at 24% -18%,
-      rgba(10, 9, 8, 0.50) 0%,
-      rgba(12, 10, 9, 0.26) 34%,
-      rgba(14, 12, 10, 0.10) 60%,
-      rgba(14, 12, 10, 0.00) 84%
+      ellipse 130% 85% at 34% -18%,
+      rgba(10, 9, 8, 0.34) 0%,
+      rgba(12, 10, 9, 0.18) 38%,
+      rgba(14, 12, 10, 0.08) 66%,
+      rgba(14, 12, 10, 0.00) 92%
     ),
     radial-gradient(
-      ellipse at 50% -22%,
-      rgba(10, 9, 8, 0.62) 0%,
-      rgba(15, 12, 10, 0.38) 36%,
-      rgba(20, 16, 13, 0.14) 64%,
-      rgba(20, 16, 13, 0.00) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(13, 10, 8, 0.42) 0%,
-      rgba(20, 16, 13, 0.20) 44%,
-      rgba(20, 16, 13, 0.00) 100%
+      ellipse 120% 80% at 52% 6%,
+      rgba(20, 16, 13, 0.18) 0%,
+      rgba(20, 16, 13, 0.08) 44%,
+      rgba(20, 16, 13, 0.00) 78%
     );
 }
 
@@ -154,14 +154,14 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.10;
+  opacity: 0.07;
   background-image:
     repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.015) 0px,
-      rgba(255,255,255,0.015) 1px,
+      8deg,
+      rgba(255,255,255,0.012) 0px,
+      rgba(255,255,255,0.012) 1px,
       transparent 1px,
-      transparent 3px
+      transparent 4px
     );
   mix-blend-mode: soft-light;
 }
