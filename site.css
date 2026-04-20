@@ -1,0 +1,527 @@
+/**
+ * Ulterior Werks — presentation layer
+ *
+ * Coupling (do not rename without updating):
+ * - site.js sets --hero-parallax and --section-two-atmo on :root
+ * - HTML expects .hero, .section-two, .section-two-atmosphere for scroll/atmosphere
+ *
+ * Stacking (.section-two): base < ::before (seam) < ::after (grain) < .section-two-atmosphere
+ *   < .section-two-shadow-path (hook) < .section-two-inner — use --z-s2-* only here.
+ */
+
+/* ------------------------------------------------------------------------- */
+/* Fonts                                                                     */
+/* ------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Steelfish";
+  src: url("SteelfishEb.otf") format("opentype");
+  font-weight: 800;
+  font-display: block;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Tokens — edit palette / motion / stacking here first                     */
+/* ------------------------------------------------------------------------- */
+
+:root {
+  /* Surfaces */
+  --ink: #0c0a08;
+  --char: #17130f;
+  --bronze-deep: #1f1915;
+  --bronze-mid: #28211b;
+  --bronze-surface: #312821;
+  --bronze-warm: #382d24;
+
+  /* Accents & type color */
+  --gold: #f5d372;
+  --gold-muted: rgba(245, 211, 114, 0.88);
+  --mist: rgba(232, 228, 223, 0.92);
+  --mist-dim: rgba(196, 188, 176, 0.78);
+  --mist-body: rgba(232, 228, 223, 0.82);
+  --accent-bronze: rgba(186, 132, 82, 0.55);
+  --line-bronze-soft: rgba(186, 132, 82, 0.15);
+  --line-bronze-mid: rgba(186, 132, 82, 0.35);
+
+  /* Atmosphere RGB tuples (use as rgba(var(--name), a)) */
+  --rgb-smoke-deep: 12, 10, 9;
+  --rgb-smoke-mid: 14, 12, 10;
+  --rgb-smoke-light: 16, 13, 11;
+  --rgb-smoke-cool: 10, 9, 8;
+  --rgb-seam: 18, 14, 12;
+  --rgb-seam-deep: 20, 16, 13;
+  --rgb-warm: 186, 132, 82;
+  --rgb-ash: 108, 100, 88;
+  --rgb-force: 7, 6, 5;
+  --rgb-force-mid: 9, 8, 7;
+  --rgb-atmo-dim: 40, 34, 28;
+  --rgb-vignette: 8, 6, 5;
+  --rgb-gold: 245, 211, 114;
+
+  /* Typography */
+  --font-display: "Steelfish", system-ui, sans-serif;
+  --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+
+  /* Spacing */
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: clamp(3rem, 6vw, 5rem);
+  --space-3xl: clamp(4rem, 10vw, 8rem);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 0.2s;
+  --duration-med: 0.45s;
+  --duration-slow: 0.75s;
+
+  /* Manifesto entrance (one place to retime stagger) */
+  --manifesto-delay-head: 0.12s;
+  --manifesto-delay-body: 0.28s;
+  --manifesto-delay-foot: 0.44s;
+
+  /* Scroll-driven (site.js) */
+  --hero-parallax: 0px;
+  --section-two-atmo: 0.42;
+
+  /* Z-index */
+  --z-skip: 9999;
+  --z-hero-bg: 0;
+  --z-hero-vignette: 1;
+  --z-hero-content: 10;
+  --z-s2-seam: 1;
+  --z-s2-grain: 2;
+  --z-s2-atmo: 3;
+  --z-s2-shadow-hook: 4;
+  --z-s2-content: 5;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Reset & base                                                              */
+/* ------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--ink);
+  color: var(--mist);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--gold-muted);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-in-out-soft);
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent-bronze);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Skip link                                                                 */
+/* ------------------------------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-sm);
+  z-index: var(--z-skip);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: top var(--duration-med) var(--ease-out-expo);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Hero                                                                      */
+/* ------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  padding-bottom: clamp(1.5rem, 5vh, 3.5rem);
+}
+
+.hero .bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-hero-bg);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: translate3d(0, var(--hero-parallax), 0) scale(1.02);
+  will-change: transform;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-hero-vignette);
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      rgba(var(--rgb-vignette), 0.75) 0%,
+      rgba(var(--rgb-vignette), 0.2) 35%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 85% 70% at 50% 100%,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 55%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: var(--z-hero-content);
+  max-width: min(96vw, 72rem);
+}
+
+.wordmark {
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.85rem, 7.5vw + 0.85rem, 9.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.4),
+    0 4px 32px rgba(0, 0, 0, 0.55);
+  transition:
+    transform var(--duration-slow) var(--ease-out-expo),
+    text-shadow var(--duration-slow) var(--ease-out-expo),
+    letter-spacing var(--duration-slow) var(--ease-out-expo);
+}
+
+@media (max-width: 22rem) {
+  .wordmark {
+    white-space: normal;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wordmark:hover {
+    letter-spacing: 0.04em;
+    transform: translateY(-3px);
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.35),
+      0 8px 48px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba(var(--rgb-gold), 0.12);
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Section two — atmosphere                                                  */
+/* ------------------------------------------------------------------------- */
+
+.section-two {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(100svh, 100dvh);
+  background:
+    radial-gradient(
+      ellipse 140% 85% at 78% -6%,
+      rgba(var(--rgb-smoke-deep), 0.55) 0%,
+      rgba(var(--rgb-smoke-mid), 0.28) 34%,
+      rgba(var(--rgb-smoke-light), 0.1) 62%,
+      rgba(var(--rgb-smoke-light), 0) 88%
+    ),
+    radial-gradient(
+      ellipse 120% 70% at 28% -10%,
+      rgba(var(--rgb-smoke-cool), 0.42) 0%,
+      rgba(var(--rgb-smoke-deep), 0.2) 38%,
+      rgba(var(--rgb-smoke-mid), 0.08) 66%,
+      rgba(var(--rgb-smoke-mid), 0) 90%
+    ),
+    radial-gradient(
+      circle at 86% 12%,
+      rgba(var(--rgb-warm), 0.2) 0%,
+      rgba(var(--rgb-warm), 0.1) 14%,
+      rgba(var(--rgb-warm), 0.04) 28%,
+      rgba(var(--rgb-warm), 0) 44%
+    ),
+    radial-gradient(
+      ellipse 120% 70% at 92% 8%,
+      rgba(var(--rgb-force), 0.34) 0%,
+      rgba(var(--rgb-force-mid), 0.18) 30%,
+      rgba(var(--rgb-smoke-deep), 0.08) 58%,
+      rgba(var(--rgb-smoke-deep), 0) 84%
+    ),
+    radial-gradient(
+      ellipse at 20% 78%,
+      rgba(var(--rgb-ash), 0.07) 0%,
+      rgba(var(--rgb-ash), 0.03) 24%,
+      rgba(var(--rgb-ash), 0) 48%
+    ),
+    linear-gradient(
+      to bottom,
+      var(--char) 0%,
+      var(--bronze-deep) 24%,
+      var(--bronze-mid) 55%,
+      var(--bronze-surface) 82%,
+      var(--bronze-warm) 100%
+    );
+}
+
+.section-two::before {
+  content: "";
+  position: absolute;
+  top: -18vh;
+  left: -8vw;
+  z-index: var(--z-s2-seam);
+  width: 116vw;
+  height: 58vh;
+  pointer-events: none;
+  filter: blur(0.6px);
+  background:
+    radial-gradient(
+      ellipse 150% 95% at 70% -10%,
+      rgba(var(--rgb-seam), 0.42) 0%,
+      rgba(var(--rgb-seam), 0.22) 34%,
+      rgba(var(--rgb-seam), 0.08) 62%,
+      rgba(var(--rgb-seam), 0) 92%
+    ),
+    radial-gradient(
+      ellipse 130% 85% at 34% -18%,
+      rgba(var(--rgb-smoke-cool), 0.34) 0%,
+      rgba(var(--rgb-smoke-deep), 0.18) 38%,
+      rgba(var(--rgb-smoke-mid), 0.08) 66%,
+      rgba(var(--rgb-smoke-mid), 0) 92%
+    ),
+    radial-gradient(
+      ellipse 120% 80% at 52% 6%,
+      rgba(var(--rgb-seam-deep), 0.18) 0%,
+      rgba(var(--rgb-seam-deep), 0.08) 44%,
+      rgba(var(--rgb-seam-deep), 0) 78%
+    );
+}
+
+.section-two::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-s2-grain);
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: soft-light;
+  background-image: repeating-linear-gradient(
+    8deg,
+    rgba(255, 255, 255, 0.012) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+.section-two-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-s2-atmo);
+  pointer-events: none;
+  opacity: var(--section-two-atmo);
+  transition: opacity 0.15s var(--ease-in-out-soft);
+  background:
+    radial-gradient(
+      ellipse 100% 55% at 50% 0%,
+      rgba(var(--rgb-warm), 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 12% 40%,
+      rgba(var(--rgb-atmo-dim), 0.25) 0%,
+      transparent 45%
+    );
+}
+
+.section-two-shadow-path {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-s2-shadow-hook);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Section two — manifesto                                                   */
+/* ------------------------------------------------------------------------- */
+
+.section-two-inner {
+  position: relative;
+  z-index: var(--z-s2-content);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-xl);
+  max-width: 38rem;
+  min-height: min(100svh, 100dvh);
+  margin: 0 auto;
+  padding: var(--space-3xl) clamp(var(--space-md), 5vw, var(--space-xl)) var(--space-2xl);
+}
+
+.manifesto-header,
+.manifesto-body {
+  opacity: 0;
+  animation: reveal-up var(--duration-slow) var(--ease-out-expo) forwards;
+}
+
+.manifesto-header {
+  transform: translateY(1.25rem);
+  animation-delay: var(--manifesto-delay-head);
+}
+
+.manifesto-body {
+  transform: translateY(1rem);
+  animation-delay: var(--manifesto-delay-body);
+}
+
+.manifesto-foot {
+  opacity: 0;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--line-bronze-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mist-dim);
+  animation: reveal-fade var(--duration-slow) var(--ease-out-expo) var(--manifesto-delay-foot) forwards;
+}
+
+.manifesto-foot a {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  padding-bottom: 0.15em;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--line-bronze-mid);
+  transition:
+    border-color var(--duration-med) var(--ease-out-expo),
+    color var(--duration-med) var(--ease-out-expo);
+}
+
+.manifesto-foot a:hover {
+  border-color: var(--gold);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist-dim);
+}
+
+.eyebrow::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin-top: var(--space-sm);
+  background: linear-gradient(90deg, var(--accent-bronze), transparent);
+}
+
+.manifesto-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  color: var(--mist);
+}
+
+.manifesto-body p {
+  font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
+  line-height: 1.7;
+  color: var(--mist-body);
+}
+
+.manifesto-body p + p {
+  margin-top: var(--space-md);
+}
+
+.manifesto-body strong {
+  font-weight: 600;
+  color: var(--mist);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Keyframes                                                                 */
+/* ------------------------------------------------------------------------- */
+
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Reduced motion                                                            */
+/* ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .manifesto-header,
+  .manifesto-body,
+  .manifesto-foot {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
