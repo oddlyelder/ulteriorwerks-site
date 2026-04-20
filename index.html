@@ -53,57 +53,85 @@
       text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
 
-/* SECOND SECTION BACKGROUND (static, no animation yet) */
-
+/* SECOND SECTION BACKGROUND (static atmosphere, shadow-ready) */
 .section-two {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+  isolation: isolate;
   background:
-    /* warm glow near shadow source (top-right) */
+    /* restrained warm source near upper-right */
     radial-gradient(
-      circle at 86% 10%,
-      rgba(176, 128, 84, 0.14) 0%,
-      rgba(176, 128, 84, 0.08) 14%,
-      rgba(176, 128, 84, 0.03) 28%,
-      rgba(176, 128, 84, 0.00) 42%
+      circle at 86% 12%,
+      rgba(186, 132, 82, 0.20) 0%,
+      rgba(186, 132, 82, 0.10) 14%,
+      rgba(186, 132, 82, 0.04) 28%,
+      rgba(186, 132, 82, 0.00) 44%
     ),
 
-    /* broad diagonal dark sweep where shadow path will travel */
+    /* implied diagonal force lane for future robot shadow */
     linear-gradient(
-      135deg,
-      rgba(0,0,0,0.22) 8%,
-      rgba(0,0,0,0.12) 28%,
-      rgba(0,0,0,0.06) 46%,
-      rgba(0,0,0,0.02) 62%,
-      rgba(0,0,0,0.00) 76%
+      136deg,
+      rgba(7, 6, 5, 0.30) 10%,
+      rgba(9, 8, 7, 0.20) 27%,
+      rgba(12, 10, 9, 0.11) 46%,
+      rgba(12, 10, 9, 0.04) 64%,
+      rgba(12, 10, 9, 0.00) 78%
     ),
 
-    /* subtle cool lift lower-left for balance */
+    /* cool-brown smoke lift for dimensional balance */
     radial-gradient(
-      circle at 18% 78%,
-      rgba(120, 126, 140, 0.05) 0%,
-      rgba(120, 126, 140, 0.02) 22%,
-      rgba(120, 126, 140, 0.00) 44%
+      ellipse at 20% 78%,
+      rgba(108, 100, 88, 0.07) 0%,
+      rgba(108, 100, 88, 0.03) 24%,
+      rgba(108, 100, 88, 0.00) 48%
     ),
 
-    /* base material tone */
+    /* rich bronze/burnt lower field */
     linear-gradient(
       to bottom,
-      #171310 0%,
-      #211c18 32%,
-      #2a241f 68%,
-      #302923 100%
+      #17130f 0%,
+      #1f1915 24%,
+      #28211b 55%,
+      #312821 82%,
+      #382d24 100%
     );
 }
 
-/* optional texture layer */
+/* organic smoke/falloff seam from hero into section two */
 .section-two::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  z-index: 1;
   pointer-events: none;
-  opacity: 0.08;
+  background:
+    radial-gradient(
+      ellipse at 50% -22%,
+      rgba(10, 9, 8, 0.84) 0%,
+      rgba(15, 12, 10, 0.55) 35%,
+      rgba(20, 16, 13, 0.20) 62%,
+      rgba(20, 16, 13, 0.00) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(13, 10, 8, 0.62) 0%,
+      rgba(20, 16, 13, 0.24) 48%,
+      rgba(20, 16, 13, 0.00) 100%
+    );
+}
+
+/* restrained surface grain for material feel */
+.section-two::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.10;
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -115,22 +143,20 @@
   mix-blend-mode: soft-light;
 }
 
-/* optional top transition from hero section */
-.section-two::after {
-  content: "";
+/* hook: future animated atmospheric modulation layer */
+.section-two-atmosphere {
   position: absolute;
-  top: -18vh;
-  left: 0;
-  width: 100%;
-  height: 26vh;
+  inset: 0;
+  z-index: 3;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(8,8,8,0.96) 0%,
-    rgba(14,12,10,0.88) 18%,
-    rgba(20,17,14,0.60) 42%,
-    rgba(20,17,14,0.00) 100%
-  );
+}
+
+/* hook: future blurred robot shadow path layer */
+.section-two-shadow-path {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
 }
   </style>
 </head>
@@ -139,6 +165,9 @@
     <img class="bg" src="evil-robot.png" alt="">
     <h1 class="wordmark">ulterior|werks</h1>
   </section>
-  <section class="section-two"></section>
+  <section class="section-two">
+    <div class="section-two-atmosphere" aria-hidden="true"></div>
+    <div class="section-two-shadow-path" aria-hidden="true"></div>
+  </section>
 </body>
 </html>
