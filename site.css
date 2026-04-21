@@ -48,8 +48,6 @@
   --rgb-force-mid: 9, 8, 7;
   --rgb-atmo-dim: 40, 34, 28;
   --rgb-vignette: 8, 6, 5;
-  --rgb-gold: 245, 211, 114;
-
   /* Typography */
   --font-display: "Steelfish", system-ui, sans-serif;
   --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
@@ -64,7 +62,6 @@
   --ease-in-out-soft: cubic-bezier(0.45, 0, 0.55, 1);
   --duration-fast: 0.2s;
   --duration-med: 0.45s;
-  --duration-slow: 0.75s;
 
   /* Scroll-driven (site.js) */
   --hero-parallax: 0px;
@@ -216,26 +213,11 @@ a:focus-visible {
   text-shadow:
     0 1px 0 rgba(0, 0, 0, 0.4),
     0 4px 32px rgba(0, 0, 0, 0.55);
-  transition:
-    transform var(--duration-slow) var(--ease-out-expo),
-    text-shadow var(--duration-slow) var(--ease-out-expo),
-    letter-spacing var(--duration-slow) var(--ease-out-expo);
 }
 
 @media (max-width: 22rem) {
   .wordmark {
     white-space: normal;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .wordmark:hover {
-    letter-spacing: 0.04em;
-    transform: translateY(-3px);
-    text-shadow:
-      0 2px 0 rgba(0, 0, 0, 0.35),
-      0 8px 48px rgba(0, 0, 0, 0.5),
-      0 0 60px rgba(var(--rgb-gold), 0.12);
   }
 }
 
