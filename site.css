@@ -27,11 +27,6 @@
 :root {
   /* Surfaces */
   --ink: #0c0a08;
-  --char: #17130f;
-  --bronze-deep: #1f1915;
-  --bronze-mid: #28211b;
-  --bronze-surface: #312821;
-  --bronze-warm: #382d24;
 
   /* Accents & type color */
   --gold: #f5d372;
@@ -288,13 +283,39 @@ a:focus-visible {
       rgba(var(--rgb-ash), 0.03) 24%,
       rgba(var(--rgb-ash), 0) 48%
     ),
+    /* Base vertical field: grape-soda-3 → red-ochre (Coolors export, reversed for to bottom) */
     linear-gradient(
       to bottom,
-      var(--char) 0%,
-      var(--bronze-deep) 24%,
-      var(--bronze-mid) 55%,
-      var(--bronze-surface) 82%,
-      var(--bronze-warm) 100%
+      #7e3b73,
+      #813b6f,
+      #843a6b,
+      #873a67,
+      #893a64,
+      #8c3960,
+      #8f395c,
+      #923958,
+      #953954,
+      #983850,
+      #9b384c,
+      #9d3849,
+      #a03745,
+      #a33741,
+      #a6373d,
+      #a93639,
+      #ac3635,
+      #af3631,
+      #b2352d,
+      #b4352a,
+      #b73526,
+      #ba3422,
+      #bd341e,
+      #c0341a,
+      #c33416,
+      #c63312,
+      #c8330f,
+      #cb330b,
+      #ce3207,
+      #d13203
     );
 }
 
